@@ -17,6 +17,7 @@ export default class Chat extends Component {
   }
 
   componentDidMount() {
+    // access name prop from Start Screen and set as title in Navigation bar
     let { name } = this.props.route.params;
     this.props.navigation.setOptions({ title: name });
     this.setState({
@@ -61,7 +62,7 @@ export default class Chat extends Component {
   }
 
   render() {
-    //access name and color props from StartScreen
+    //access color prop from StartScreen
     let { color } = this.props.route.params;
 
     return (
