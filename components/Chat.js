@@ -4,24 +4,14 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   View,
+  KeyboardAvoidingView,
   LogBox,
 } from "react-native";
 import { Bubble, GiftedChat } from "react-native-gifted-chat";
-import { decode, encode } from "base-64";
-// only for android
-import KeyboardSpacer from "react-native-keyboard-spacer";
 
 // require Firebase and Cloud Firestore
 const firebase = require("firebase");
 require("firebase/firestore");
-
-if (!global.btoa) {
-  global.btoa = encode;
-}
-
-if (!global.atob) {
-  global.atob = decode;
-}
 
 export default class Chat extends Component {
   constructor(props) {
@@ -54,7 +44,7 @@ export default class Chat extends Component {
   }
 
   // This function is fired when 'messages' collection changes.
-  // Needs to retreive current data in 'messages' collection and store it in state 'messages', allowing that data to be rendered in view
+  // Needs to retrieve current data in 'messages' collection and store it in state 'messages', allowing that data to be rendered in view
   onCollectionUpdate = (querySnapshot) => {
     const messages = [];
     // go through each document
@@ -114,7 +104,7 @@ export default class Chat extends Component {
     );
   }
 
-  // Need to add accesibilityLabel and accessibilityHint for screenreaders to action button in input field
+  // Need to add accessibilityLabel and accessibilityHint for screenreaders to action button in input field
 
   render() {
     let { color } = this.props.route.params;
@@ -137,7 +127,9 @@ export default class Chat extends Component {
             }}
           />
           {/* Make sure that keyboard and message input field display correctly in Android OS */}
-          {Platform.OS === "android" ? <KeyboardSpacer /> : null}
+          {Platform.OS === "android" ? (
+            <KeyboardAvoidingView behavior="height" />
+          ) : null}
         </View>
       </TouchableWithoutFeedback>
     );
