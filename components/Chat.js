@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   View,
+  LogBox,
 } from "react-native";
 import { Bubble, GiftedChat } from "react-native-gifted-chat";
 import { decode, encode } from "base-64";
@@ -25,6 +26,7 @@ if (!global.atob) {
 export default class Chat extends Component {
   constructor(props) {
     super(props);
+
     // Creation of the state object in order to send, receive and display messages
     this.state = {
       messages: [],
@@ -45,7 +47,12 @@ export default class Chat extends Component {
     this.referenceChatAppUser = null;
     // Create reference to Firestore 'messages' collection which stores and retreives messages the users send
     this.referenceMessages = firebase.firestore().collection("messages");
+    LogBox.ignoreLogs([
+      "Setting a timer for a long period of time",
+      "undefined",
+    ]);
   }
+
   // This function is fired when 'messages' collection changes.
   // Needs to retreive current data in 'messages' collection and store it in state 'messages', allowing that data to be rendered in view
   onCollectionUpdate = (querySnapshot) => {
@@ -106,16 +113,9 @@ export default class Chat extends Component {
       />
     );
   }
-  // display user name in navigation bar
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: this.props.route.params.name,
-    };
-  };
-  // Code for rendering chat interface with GiftedChat component
-  // ----- !!!
-  // Don't forget to add accesibilityLabel and accessibilityHint for screenreacers to action button in input field
-  /// ----- !!!
+
+  // Need to add accesibilityLabel and accessibilityHint for screenreaders to action button in input field
+
   render() {
     let { color } = this.props.route.params;
 
@@ -144,6 +144,9 @@ export default class Chat extends Component {
   }
   // Called as soon as Chat component mounts
   componentDidMount() {
+    // displays user's name in navigation bar
+    let { name } = this.props.route.params;
+    this.props.navigation.setOptions({ title: name });
     // Listen to authentication events
     // Calling Firebase Auth service with firebase.auth()
     // onAuthStateChanged() function called when user's sign-in state changes, returns unsubscribe() function, provides you with user object
