@@ -4,6 +4,9 @@
 ## Screenshots
 <img src="assets/Start-Screen.png" width="300"> | <img src="assets/Chat-Screen.png" width="300"> 
 
+## Demo
+![Alt text](/assets/demo.gif?raw=true 'jibjab')
+
 ## React Native
 [React Native](https://reactnative.dev/docs/getting-started) is a JavaScript framework used for building native applications for iOS and Android. You will need either an iOS/Android simulator/emulator to run the app on your computer. You will use [Expo](https://expo.io/learn) to develop and test this app, [GiftedChatUI](https://github.com/FaridSafi/react-native-gifted-chat) to create the chat interface, and [Google Firebase](https://firebase.google.com/) to store sent/recieved messages. 
 
