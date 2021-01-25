@@ -4,6 +4,16 @@
 ## Screenshots
 <img src="assets/Start-Screen.png" width="300"> | <img src="assets/Chat-Screen.png" width="300"> 
 
+## Features
+
+- Users enter name and select background color in Start Screen before joining the chat.
+- Chat Screen displays the conversation, as well as an input field and submit button.
+- Provides users with two additional message features: sending images (either from image library or device's camera)
+  and location data displayed as a custom map view.
+- Messages, including sent images and location data, are stored in Google Firebase Cloud Storage.  
+- Users must grant permission to the app prior to accessing image library, camera and location data.
+- When offline, the app will dispaly a user's existing messages, utilizing asyncStorage
+
 ## Demo
 ![Alt text](/assets/demo.gif?raw=true 'jibjab')
 
