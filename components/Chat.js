@@ -10,6 +10,8 @@ import {
 import { Bubble, GiftedChat, InputToolbar } from "react-native-gifted-chat";
 import AsyncStorage from "@react-native-community/async-storage";
 import NetInfo from "@react-native-community/netinfo";
+import MapView from "react-native-maps";
+import CustomActions from "./CustomActions";
 
 // require Firebase and Cloud Firestore
 const firebase = require("firebase");
@@ -43,6 +45,7 @@ export default class Chat extends Component {
     LogBox.ignoreLogs([
       "Setting a timer for a long period of time",
       "undefined",
+      "Animated.event now requires a second argument for options",
     ]);
   }
 
@@ -59,6 +62,8 @@ export default class Chat extends Component {
         text: data.text,
         createdAt: data.createdAt.toDate(),
         user: data.user,
+        image: data.image || "",
+        location: data.location || null,
       });
     });
     this.setState({
@@ -71,10 +76,12 @@ export default class Chat extends Component {
     const message = this.state.messages[0];
     this.referenceMessages.add({
       _id: message._id,
-      text: message.text,
+      text: message.text || "",
       createdAt: message.createdAt,
       user: message.user,
       uid: this.state.uid,
+      image: message.image || "",
+      location: message.location || null,
     });
   }
   // Custom function called when user sends a message
@@ -90,7 +97,7 @@ export default class Chat extends Component {
     );
   }
   // Async functions
-  async getMessages() {
+  getMessages = async () => {
     let messages = "";
     // wrap logic in try and catch so that errors can be caught
     try {
@@ -105,8 +112,8 @@ export default class Chat extends Component {
     } catch (error) {
       console.log(error.message);
     }
-  }
-  async saveMessages() {
+  };
+  saveMessages = async () => {
     try {
       await AsyncStorage.setItem(
         "messages",
@@ -115,25 +122,25 @@ export default class Chat extends Component {
     } catch (error) {
       console.log(error.message);
     }
-  }
-  async deleteMessages() {
+  };
+  deleteMessages = async () => {
     try {
       await AsyncStorage.removeItem("messages");
     } catch (error) {
       console.log(error.message);
     }
-  }
+  };
 
   // hide Input field when offline because messages can't be sent
-  renderInputToolbar(props) {
-    console.log("Message from renderInputToolbar: " + this.state.isConnected);
-    if (!this.state.isConnected === false) {
+  renderInputToolbar = (props) => {
+    // console.log("Message from renderInputToolbar: " + this.state.isConnected);
+    if (this.state.isConnected !== false) {
       return <InputToolbar {...props} />;
     }
-  }
+  };
 
   // Change background color of sender's speech bubble
-  renderBubble(props) {
+  renderBubble = (props) => {
     return (
       <Bubble
         {...props}
@@ -149,7 +156,29 @@ export default class Chat extends Component {
         }}
       />
     );
+  };
+
+  renderCustomView(props) {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+        <MapView
+          style={{ borderRadius: 13, height: 100, margin: 3, width: 150 }}
+          showsUserLocation={true}
+          region={{
+            latitude: Number(currentMessage.location.latitude),
+            longitude: Number(currentMessage.location.longitude),
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
+      );
+    }
+    return null;
   }
+  renderCustomActions = (props) => {
+    return <CustomActions {...props} />;
+  };
 
   // Called as soon as Chat component mounts
   componentDidMount() {
@@ -188,7 +217,11 @@ export default class Chat extends Component {
           .auth()
           .onAuthStateChanged(async (user) => {
             if (!user) {
-              await firebase.auth().signInAnonymously();
+              try {
+                await firebase.auth().signInAnonymously();
+              } catch (error) {
+                console.error(error.message);
+              }
             }
 
             // update user state with currently active user data
@@ -224,7 +257,6 @@ export default class Chat extends Component {
     this.unsubscribeChatAppUser();
   }
   // Code for rendering chat interface with GiftedChat component
-  // Need to add accessibilityLabel and accessibilityHint for screenreaders to action button in input field
   render() {
     return (
       <TouchableWithoutFeedback
@@ -241,6 +273,8 @@ export default class Chat extends Component {
           <GiftedChat
             renderBubble={this.renderBubble}
             renderInputToolbar={this.renderInputToolbar.bind(this)}
+            renderActions={this.renderCustomActions}
+            renderCustomView={this.renderCustomView}
             messages={this.state.messages}
             onSend={(messages) => this.onSend(messages)}
             user={{
