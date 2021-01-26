@@ -58,7 +58,7 @@ const firebase = require('firebase');
 require('firebase/firestore');
 ```
 
-2. Integrate your *own* Firebase configuration info into App.js file:
+2. Integrate your Firebase configuration info into Chat.js file:
 ```
 const firebaseConfig = {
     apiKey: "AIzaSyAqNQcJEL-24hdJWCJmzoUTLTu22sOZGE8",
@@ -78,6 +78,7 @@ if (!firebase.apps.length){
 ### Gifted Chat
 * `npm install react-native-gifted-chat --save`
 
-https://github.com/FaridSafi/react-native-gifted-chat
+[Visit "https://github.com/FaridSafi/react-native-gifted-chat" for details on utilization](https://github.com/FaridSafi/react-native-gifted-chat)
+
 
 
