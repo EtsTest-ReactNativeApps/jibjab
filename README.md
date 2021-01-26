@@ -78,7 +78,7 @@ if (!firebase.apps.length){
 ### Gifted Chat
 * `npm install react-native-gifted-chat --save`
 
-[Visit "https://github.com/FaridSafi/react-native-gifted-chat" for details on utilization](https://github.com/FaridSafi/react-native-gifted-chat)
+[Visit "https://github.com/FaridSafi/react-native-gifted-chat" for details on Gifted Chat features/utilization](https://github.com/FaridSafi/react-native-gifted-chat)
 
 
 
