@@ -2,7 +2,20 @@
 >Native mobile chat application developed with React Native, Expo and Google Firestore Database
 
 ## Screenshots
-<img src="assets/Start-Screen.png" width="300"> | <img src="assets/Chat-Screen.png" width="300"> 
+<img src="assets/Start-Screen.png" width="300" height="650">  <img src="assets/Chat-Screen.png" width="300" height="650"> 
+
+## Features
+
+- Users enter name and select background color in Start Screen before joining the chat.
+- Chat Screen displays the conversation, as well as an input field and submit button.
+- Provides users with two additional message features: sending images (either from image library or device's camera)
+  and location data displayed as a custom map view.
+- Messages, including sent images and location data, are stored in Google Firebase Cloud Storage.  
+- Users must grant permission to the app prior to accessing image library, camera and location data.
+- When offline, the app will dispaly a user's existing messages, utilizing asyncStorage
+
+## Demo
+<img src="assets/Demo1.gif" width="300" height="650" > 
 
 ## React Native
 [React Native](https://reactnative.dev/docs/getting-started) is a JavaScript framework used for building native applications for iOS and Android. You will need either an iOS/Android simulator/emulator to run the app on your computer. You will use [Expo](https://expo.io/learn) to develop and test this app, [GiftedChatUI](https://github.com/FaridSafi/react-native-gifted-chat) to create the chat interface, and [Google Firebase](https://firebase.google.com/) to store sent/recieved messages. 
