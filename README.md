@@ -12,7 +12,7 @@
   and location data displayed as a custom map view.
 - Messages, including sent images and location data, are stored in Google Firebase Cloud Storage.  
 - Users must grant permission to the app prior to accessing image library, camera and location data.
-- When offline, the app will dispaly a user's existing messages, utilizing asyncStorage
+- When offline, the app will display a user's existing messages, utilizing asyncStorage
 
 ## Demo
 <img src="assets/App-Demo.gif" width="300" height="650" > 
