@@ -15,7 +15,7 @@
 - When offline, the app will dispaly a user's existing messages, utilizing asyncStorage
 
 ## Demo
-![Alt text](/assets/demo1.gif?raw=true 'jibjab') ![Alt text](/assets/demo2.gif?raw=true 'jibjab')
+<img src="assets/Demo1.gif" width="300" height="650" > 
 
 ## React Native
 [React Native](https://reactnative.dev/docs/getting-started) is a JavaScript framework used for building native applications for iOS and Android. You will need either an iOS/Android simulator/emulator to run the app on your computer. You will use [Expo](https://expo.io/learn) to develop and test this app, [GiftedChatUI](https://github.com/FaridSafi/react-native-gifted-chat) to create the chat interface, and [Google Firebase](https://firebase.google.com/) to store sent/recieved messages. 
