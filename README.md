@@ -1,5 +1,5 @@
 # jibjab 💬
-- Native mobile chat application developed with React Native, Expo and Google Firestore Database
+- Native mobile chat application developed with React Native, Expo and Google Firestore Database.
 
 ## Screenshots
 <img src="assets/Start-Screen.png" width="300" height="650">  <img src="assets/Chat-Screen.png" width="300" height="650"> 
